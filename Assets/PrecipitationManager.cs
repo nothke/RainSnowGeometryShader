@@ -80,9 +80,53 @@ using UnityEngine.Rendering;
         return reference;
     }
 
+    #region Property id caching
+
+    int id_MainTex;
+    int id_NoiseTex;
+
+    int id_GridSize;
+
+    int id_Amount;
+    int id_Color;
+    int id_ColorVariation;
+    int id_FallSpeed;
+    int id_FlutterFrequency;
+    int id_FlutterSpeed;
+    int id_FlutterMagnitude;
+    int id_CameraRange;
+    int id_SizeRange;
+
+    int id_MaxTravelDistance;
+    int id_WindRotationMatrix;
+
+    void CacheIDs()
+    {
+        id_MainTex = Shader.PropertyToID("_MainTex");
+        id_NoiseTex = Shader.PropertyToID("_NoiseTex");
+        id_GridSize = Shader.PropertyToID("_GridSize");
+
+        id_Amount = Shader.PropertyToID("_Amount");
+        id_Color = Shader.PropertyToID("_Color");
+        id_ColorVariation = Shader.PropertyToID("_ColorVariation");
+        id_FallSpeed = Shader.PropertyToID("_FallSpeed");
+        id_FlutterFrequency = Shader.PropertyToID("_FlutterFrequency");
+        id_FlutterSpeed = Shader.PropertyToID("_FlutterSpeed");
+        id_FlutterMagnitude = Shader.PropertyToID("_FlutterMagnitued");
+        id_CameraRange = Shader.PropertyToID("_CameraRange");
+        id_SizeRange = Shader.PropertyToID("_SizeRange");
+
+        id_MaxTravelDistance = Shader.PropertyToID("_MaxTravelDistance");
+        id_WindRotationMatrix = Shader.PropertyToID("_WindRotationMatrix");
+    }
+
+    #endregion
+
     void OnEnable () {
         gridHandler = GetComponent<GridHandler>();
         gridHandler.onPlayerGridChange += OnPlayerGridChange;
+
+        CacheIDs();
     }
 
     void OnDisable() {
@@ -165,25 +209,25 @@ using UnityEngine.Rendering;
         if (settings.amount <= 0)
             return;
 
-        material.SetTexture("_MainTex", mainTexture);
-        material.SetTexture("_NoiseTex", noiseTexture);  
+        material.SetTexture(id_MainTex, mainTexture);
+        material.SetTexture(id_NoiseTex, noiseTexture);  
 
-        material.SetFloat("_GridSize", gridHandler.gridSize);
+        material.SetFloat(id_GridSize, gridHandler.gridSize);
         
-        material.SetFloat("_Amount", settings.amount);
+        material.SetFloat(id_Amount, settings.amount);
 
-        material.SetColor("_Color", settings.color);
-        material.SetColor("_ColorVariation", settings.colorVariation);
-        material.SetFloat("_FallSpeed", settings.fallSpeed);
-        material.SetVector("_FlutterFrequency", settings.flutterFrequency);
-        material.SetVector("_FlutterSpeed", settings.flutterSpeed);
-        material.SetVector("_FlutterMagnitude", settings.flutterMagnitude);
-        material.SetVector("_CameraRange", settings.cameraRange);
-        material.SetVector("_SizeRange", settings.sizeRange);
+        material.SetColor(id_Color, settings.color);
+        material.SetColor(id_ColorVariation, settings.colorVariation);
+        material.SetFloat(id_FallSpeed, settings.fallSpeed);
+        material.SetVector(id_FlutterFrequency, settings.flutterFrequency);
+        material.SetVector(id_FlutterSpeed, settings.flutterSpeed);
+        material.SetVector(id_FlutterMagnitude, settings.flutterMagnitude);
+        material.SetVector(id_CameraRange, settings.cameraRange);
+        material.SetVector(id_SizeRange, settings.sizeRange);
 
-        material.SetFloat("_MaxTravelDistance", maxTravelDistance);
+        material.SetFloat(id_MaxTravelDistance, maxTravelDistance);
 
-        material.SetMatrix("_WindRotationMatrix", windRotationMatrix);
+        material.SetMatrix(id_WindRotationMatrix, windRotationMatrix);
                         
         Graphics.DrawMeshInstanced(
             meshToDraw, 0, material, renderMatrices, renderMatrices.Length, 
