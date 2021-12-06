@@ -112,7 +112,7 @@ using UnityEngine.Rendering;
         id_FallSpeed = Shader.PropertyToID("_FallSpeed");
         id_FlutterFrequency = Shader.PropertyToID("_FlutterFrequency");
         id_FlutterSpeed = Shader.PropertyToID("_FlutterSpeed");
-        id_FlutterMagnitude = Shader.PropertyToID("_FlutterMagnitued");
+        id_FlutterMagnitude = Shader.PropertyToID("_FlutterMagnitude");
         id_CameraRange = Shader.PropertyToID("_CameraRange");
         id_SizeRange = Shader.PropertyToID("_SizeRange");
 
